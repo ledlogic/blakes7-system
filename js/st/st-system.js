@@ -99,7 +99,18 @@ st.system = {
 		var aPlanet = null;
 		var planetType = st.system.genPlanetType(nPosition);
 		st.log("planetType[" + planetType + "]");
-		aPlanet = new Planet(nPosition, planetType);
+		
+		var nSat = st.math.die(1, 6, -3);
+		nSat = Math.max(0, nSat);
+		st.log("nSat[" + nSat + "]");
+		
+		var rings = [];
+		for (var i=0; i<nSat; i++) {
+			var pRing = st.math.die(1,100,0);
+			rings[i] = (pRing < 31);
+		}
+
+		aPlanet = new Planet(nPosition, planetType, nSat, rings);
 		return aPlanet;
 	},
 	
@@ -218,7 +229,7 @@ st.system = {
 				h.push(st.system.renderPosition(pos));
 				h.push("</h3>");
 				
-				for(var i=0;i<nPlanets;i++) {
+				for(var i=0; i<nPlanets; i++) {
 					var aPlanet = st.system.planets[i];
 					if (aPlanet.planetPosition === pos) {
 						h.push("<div>");
@@ -228,6 +239,18 @@ st.system = {
 							
 							h.push("<span class=\"st-star-attr\">");
 							h.push(aPlanet.planetType);
+							h.push("</span>");
+
+							h.push("<span class=\"st-star-attr\">");
+							h.push("Satellites: " + aPlanet.satellites);
+							h.push("</span>");
+
+							h.push("<span class=\"st-star-attr\">");
+							for(var r=0; r<aPlanet.rings.length; r++) {			
+								if (aPlanet.rings[r]) {
+									h.push("<span class=\"st-star-attr\">Ring: " + (r+1) + "</span>");
+								}
+							}
 							h.push("</span>");
 						h.push("</div>");
 					}
