@@ -3,10 +3,12 @@
 st.system = {
 	$stars: null,
 	stars: [],
+	planets: [],
 	
 	init: function() {
 		st.log("init system");
 		st.system.$stars = $(".st-system .st-stars");
+		st.system.$planets = $(".st-system .st-planets");
 		st.system.gen();
 		st.system.render();
 	},
@@ -15,6 +17,7 @@ st.system = {
 	gen: function() {
 		st.log("gen");
 		st.system.genStars();
+		st.system.genPlanets();
 	},
 	
 	genStars: function() {
@@ -28,7 +31,7 @@ st.system = {
 		}
 		st.log("pStars[" + pStars + "]");
 		st.log("nStars[" + nStars + "]");
-		for(var i=0;i<nStars;i++) {
+		for(var i=0; i<nStars; i++) {
 			var aStar = st.system.genStar(i);
 			st.log("aStar[" + aStar.toStr() + "]");
 			st.system.stars.push(aStar);
@@ -71,11 +74,95 @@ st.system = {
 		}
 		return aStar;
 	},
+
+	genPlanets: function() {
+		st.log("gen planets");
+		var nPlanets = st.math.die(3,6,0);
+		st.log("nPlanets[" + nPlanets + "]");
+		for(var i=0; i<nPlanets; i++) {
+			var aPlanet = st.system.genPlanet(i);
+			st.log("aPlanet[" + aPlanet.toStr() + "]");
+			st.system.planets.push(aPlanet);
+		}
+	},
 	
+	genPlanet: function(index) {
+		st.log("gen planet, index[" + index + "]");
+		var pPosition = st.math.die(1,10,0);
+		var nPosition = 0;
+		switch(true) {
+			case pPosition > 5: nPosition = 2; break;
+			case pPosition > 3: nPosition = 1; break;
+		}
+		st.log("pPosition[" + pPosition + "]");
+		st.log("nPosition[" + nPosition + "]");
+		var aPlanet = null;
+		var planetType = st.system.genPlanetType(nPosition);
+		st.log("planetType[" + planetType + "]");
+		aPlanet = new Planet(nPosition, planetType);
+		return aPlanet;
+	},
+	
+	genPlanetType: function(nPosition) {
+		var aType = null;
+		switch(nPosition) {
+			case 0: aType = st.system.getPlanetTypeInner(); break;
+			case 1: aType = st.system.getPlanetTypeLifeZone(); break;
+			case 2: aType = st.system.getPlanetTypeOuterSystem(); break;
+		}
+		return aType;
+	},
+	
+	getPlanetTypeInner: function() {		
+		var pType = st.math.die(1,20,0);
+		st.log("pType[" + pType + "]");
+		var aType = null;
+		switch(true) {
+			case pType > 17: aType = "Asteroid belt"; break;
+			case pType > 16: aType = "Gas giant"; break;
+			case pType > 8:  aType = "Rock ball"; break;
+			case pType > 3:  aType = "Greenhouse"; break;
+			default:         aType = "Empty orbit"; break;
+		}
+		return aType;
+	},
+	
+	getPlanetTypeLifeZone: function() {		
+		var pType = st.math.die(1,20,0);
+		st.log("pType[" + pType + "]");
+		var aType = null;
+		switch(true) {
+			case pType > 17: aType = "Asteroid belt"; break;
+			case pType > 16: aType = "Gas giant"; break;
+			case pType > 10: aType = "Terrestrial world"; break;
+			case pType > 7:  aType = "Desert world"; break;
+			case pType > 4:  aType = "Rock ball"; break;
+			case pType > 1:  aType = "Greenhouse"; break;
+			default:         aType = "Empty orbit"; break;
+		}
+		return aType;
+	},
+	
+	getPlanetTypeOuterSystem: function() {		
+		var pType = st.math.die(1,20,0);
+		st.log("pType[" + pType + "]");
+		var aType = null;
+		switch(true) {
+			case pType > 17: aType = "Asteroid belt"; break;
+			case pType > 14: aType = "Hostile world"; break;
+			case pType > 7:  aType = "Gas giant"; break;
+			case pType > 4:  aType = "Ice ball"; break;
+			case pType > 1:  aType = "Rock ball"; break;
+			default:         aType = "Empty orbit"; break;
+		}
+		return aType;
+	},
+
 	/* render methods */
 	render: function() {
 		st.log("render");
 		st.system.renderStars();
+		st.system.renderPlanets();
 	},
 	
 	renderStars: function() {
@@ -89,21 +176,65 @@ st.system = {
 		for(var i=0;i<nStars;i++) {
 			var aStar = st.system.stars[i];
 			h.push("<div>");
-				h.push("<h3>");
-				h.push("Star " + (i+1));
-				h.push("</h3>");
+				h.push("<span class=\"st-star-attr\">");
+				h.push(i+1);
+				h.push("</span>");
 				
 				h.push("<span class=\"st-star-attr\">");
-				h.push("<label>Type</label>");
 				h.push(aStar.starType);
 				h.push("</span>");
 
 				h.push("<span class=\"st-star-attr\">");
-				h.push("<label>Color</label>");
 				h.push(aStar.starColor);
 				h.push("</span>");
 			h.push("</div>");
 		}
 		st.system.$stars.html(h.join(""));
+	},
+	
+	renderPosition: function(pos) {
+		var ret = "";
+		switch(pos) {
+			case 0: ret = "Inner system"; break;
+			case 1: ret = "Life zone"; break;
+			case 2: ret = "Outer system"; break;
+		}
+		return ret;
+	},
+	
+	renderPlanets: function() {
+		st.log("render planets");
+		var h = [];
+		var nPlanets = st.system.planets.length;
+		st.log("nPlanets[" + nPlanets + "]");
+		h.push("<h2>");
+		h.push("Planets");
+		h.push("</h2>");
+		
+		var pCount = 1;
+		for(var pos=0;pos<3;pos++) {
+			h.push("<div>");
+				h.push("<h3>");
+				h.push(st.system.renderPosition(pos));
+				h.push("</h3>");
+				
+				for(var i=0;i<nPlanets;i++) {
+					var aPlanet = st.system.planets[i];
+					if (aPlanet.planetPosition === pos) {
+						h.push("<div>");
+							h.push("<span class=\"st-star-attr\">");
+							h.push(pCount++);
+							h.push("</span>");
+							
+							h.push("<span class=\"st-star-attr\">");
+							h.push(aPlanet.planetType);
+							h.push("</span>");
+						h.push("</div>");
+					}
+				}
+			h.push("</div>");
+		}
+		st.system.$planets.html(h.join(""));
 	}
+
 }
