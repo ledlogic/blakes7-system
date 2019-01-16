@@ -100,17 +100,32 @@ st.system = {
 		var planetType = st.system.genPlanetType(nPosition);
 		st.log("planetType[" + planetType + "]");
 		
-		var nSat = st.math.die(1, 6, -3);
-		nSat = Math.max(0, nSat);
+		var characteristic = "";
+		if (planetType === "Terrestrial world") {
+			characteristic = st.system.getPlanetCharacteristic();
+		}
+		
+		var nSat = 0;
+		switch (planetType) {
+			case "Asteroid belt": nSat = 0; break;
+			case "Empty orbit": nSat = 0; break;
+			case "Gas Giant": nSat = st.math.die(2, 6, 0); break; 
+			default: nSat = Math.max(0, st.math.die(1, 6, -3)); break;
+		}		
 		st.log("nSat[" + nSat + "]");
 		
 		var rings = [];
+		var nRings = 0;
 		for (var i=0; i<nSat; i++) {
 			var pRing = st.math.die(1,100,0);
 			rings[i] = (pRing < 31);
+			if (rings[i]) {
+				nRings++;
+			}
 		}
+		nSat -= nRings;
 
-		aPlanet = new Planet(nPosition, planetType, nSat, rings);
+		aPlanet = new Planet(nPosition, planetType, characteristic, nSat, rings);
 		return aPlanet;
 	},
 	
@@ -120,6 +135,35 @@ st.system = {
 			case 0: aType = st.system.getPlanetTypeInner(); break;
 			case 1: aType = st.system.getPlanetTypeLifeZone(); break;
 			case 2: aType = st.system.getPlanetTypeOuterSystem(); break;
+		}
+		return aType;
+	},
+	
+	getPlanetCharacteristic: function() {		
+		var pType = st.math.die(1,20,0);
+		st.log("pType[" + pType + "]");
+		var aType = null;
+		switch(pType) {
+			case 1:  aType = "Atmospheric density"; break;
+			case 2:  aType = "Axial tilt"; break;
+			case 3:  aType = "Background radiation"; break;
+			case 4:  aType = "Captured world"; break;
+			case 5:  aType = "Climate"; break;
+			case 6:  aType = "Day length"; break;
+			case 7:  aType = "Dead or dying world"; break;
+			case 8:  aType = "Planet density"; break;
+			case 9:  aType = "Elliptical orbit"; break;
+			case 10: aType = "Extreme weather"; break;
+			case 11: aType = "Gravity"; break;
+			case 12: aType = "Life"; break;
+			case 13: aType = "Ruins"; break;
+			case 14: aType = "Scarce resource"; break;
+			case 15: aType = "Terraformed"; break;
+			case 16: aType = "Toxic atmosphere"; break;
+			case 17: aType = "Unstable world"; break;
+			case 18: aType = "Unusual shape"; break;
+			case 19: aType = "Water"; break;
+			case 20: aType = "Year"; break;
 		}
 		return aType;
 	},
@@ -239,19 +283,27 @@ st.system = {
 							
 							h.push("<span class=\"st-star-attr\">");
 							h.push(aPlanet.planetType);
-							h.push("</span>");
-
-							h.push("<span class=\"st-star-attr\">");
-							h.push("Satellites: " + aPlanet.satellites);
-							h.push("</span>");
-
-							h.push("<span class=\"st-star-attr\">");
-							for(var r=0; r<aPlanet.rings.length; r++) {			
-								if (aPlanet.rings[r]) {
-									h.push("<span class=\"st-star-attr\">Ring: " + (r+1) + "</span>");
+								if (aPlanet.characteristic) {
+									h.push(" (" + aPlanet.characteristic + ")");
 								}
-							}
+							h.push(aPlanet.satellites ? "," : "");
 							h.push("</span>");
+
+							if (aPlanet.satellites) {
+								var rh = [];
+								var ringsLength = aPlanet.rings.length;
+								for(var r=0; r<ringsLength; r++) {			
+									if (aPlanet.rings[r]) {
+										rh.push((r+1) + ": Ring");
+									} else {
+										rh.push((r+1) + ": Moon");
+									}
+								}
+								h.push("<span class=\"st-star-attr\">");
+								h.push("Satellites: ");
+								h.push(rh.join(", "));
+								h.push("</span>");
+							}
 						h.push("</div>");
 					}
 				}
