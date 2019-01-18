@@ -13,7 +13,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'Microgramma Extd D Medium', sans-serif;
+	font-family: 'Microgramma Extd D Medium', 'Microgramma Extd D', sans-serif;
 	text-transform: uppercase;
 }
 
@@ -33,4 +33,30 @@ h4 {
 	font-weight: bold;
 	padding: 0.2em;
 	text-transform: uppercase;
+}
+
+.st-section {
+	border-left: 1px solid #000066;
+	border-right: 1px solid #000066;
+	max-width: 600px;
+}
+
+.st-position-stars {
+	border-color: #FF8C00;
+	color: #FF8C00;
+}
+
+.st-position-inner {
+	border-color: #660000;
+	color: #660000;
+}
+
+.st-position-goldilocks {
+	border-color: #006600;
+	color: #006600;
+}
+
+.st-position-outer {
+	border-color: #000066;
+	color: #000066;
 }

@@ -226,11 +226,11 @@ st.system = {
 		var nStars = st.system.stars.length;
 		st.log("nStars[" + nStars + "]");
 		h.push("<h2>");
-		h.push("Stars");
+		h.push("Stars (" + nStars + ")");
 		h.push("</h2>");
 		for(var i=0;i<nStars;i++) {
 			var aStar = st.system.stars[i];
-			h.push("<div>");
+			h.push("<div class=\"st-section st-position-stars\">");
 				h.push("<span class=\"st-star-attr\">");
 				h.push(i+1);
 				h.push("</span>");
@@ -257,26 +257,39 @@ st.system = {
 		return ret;
 	},
 	
+	renderPositionClass: function(pos) {
+		var ret = "st-position-";
+		switch(pos) {
+			case 0: ret += "inner"; break;
+			case 1: ret += "goldilocks"; break;
+			case 2: ret += "outer"; break;
+		}
+		return ret;
+	},
+	
 	renderPlanets: function() {
 		st.log("render planets");
 		var h = [];
 		var nPlanets = st.system.planets.length;
 		st.log("nPlanets[" + nPlanets + "]");
 		h.push("<h2>");
-		h.push("Planets");
+		h.push("Planets (" + nPlanets + " orbits)");
 		h.push("</h2>");
 		
 		var pCount = 1;
 		for(var pos=0;pos<3;pos++) {
-			h.push("<div>");
+			h.push("<div class=\"" + st.system.renderPositionClass(pos) + "\">");
 				h.push("<h3>");
 				h.push(st.system.renderPosition(pos));
 				h.push("</h3>");
 				
+				var posPlanets = 0;
 				for(var i=0; i<nPlanets; i++) {
 					var aPlanet = st.system.planets[i];
 					if (aPlanet.planetPosition === pos) {
-						h.push("<div>");
+						posPlanets++;
+						
+						h.push("<div class=\"st-section st-stars\">");
 							h.push("<span class=\"st-star-attr\">");
 							h.push(pCount++);
 							h.push("</span>");
@@ -306,6 +319,15 @@ st.system = {
 							}
 						h.push("</div>");
 					}
+				}
+				if (posPlanets === 0) {
+					h.push("<div class=\"st-section st-stars\">");
+					h.push("<span class=\"st-star-attr\">");
+					h.push("");
+					h.push("</span>");
+					h.push("<span class=\"st-star-attr\">");
+					h.push("Empty");
+					h.push("</span>");
 				}
 			h.push("</div>");
 		}
