@@ -29,19 +29,19 @@ st.system = {
 			case pStars > 95: nStars = 3; break;
 			case pStars > 70: nStars = 2; break;
 		}
-		st.log("pStars[" + pStars + "]");
-		st.log("nStars[" + nStars + "]");
+		//st.log("pStars[" + pStars + "]");
+		//st.log("nStars[" + nStars + "]");
 		for(var i=0; i<nStars; i++) {
 			var aStar = st.system.genStar(i);
-			st.log("aStar[" + aStar.toStr() + "]");
+			//st.log("aStar[" + aStar.toStr() + "]");
 			st.system.stars.push(aStar);
 		}
 	},
 	
 	genStar: function(index) {
-		st.log("gen star, index[" + index + "]");
+		//st.log("gen star, index[" + index + "]");
 		var pStar = st.math.die(1,100,0);
-		st.log("pStar[" + pStar + "]");
+		//st.log("pStar[" + pStar + "]");
 		var aStar = null;
 		switch(true) {
 			case pStar > 98: aStar = st.system.genUnusualStar(index); break;
@@ -58,9 +58,9 @@ st.system = {
 	},
 	
 	genUnusualStar: function(index) {
-		st.log("gen unusual star, index[" + index + "]");
+		//st.log("gen unusual star, index[" + index + "]");
 		var pStar = st.math.die(1,100,0);
-		st.log("pStar[" + pStar + "]");
+		//st.log("pStar[" + pStar + "]");
 		var aStar = null;
 		switch(true) {
 			case pStar > 97: aStar = new Star("Giant", "White (A)"); break;
@@ -76,29 +76,29 @@ st.system = {
 	},
 
 	genPlanets: function() {
-		st.log("gen planets");
+		//st.log("gen planets");
 		var nPlanets = st.math.die(3,6,0);
-		st.log("nPlanets[" + nPlanets + "]");
+		//st.log("nPlanets[" + nPlanets + "]");
 		for(var i=0; i<nPlanets; i++) {
 			var aPlanet = st.system.genPlanet(i);
-			st.log("aPlanet[" + aPlanet.toStr() + "]");
+			//st.log("aPlanet[" + aPlanet.toStr() + "]");
 			st.system.planets.push(aPlanet);
 		}
 	},
 	
 	genPlanet: function(index) {
-		st.log("gen planet, index[" + index + "]");
+		//st.log("gen planet, index[" + index + "]");
 		var pPosition = st.math.die(1,10,0);
 		var nPosition = 0;
 		switch(true) {
 			case pPosition > 5: nPosition = 2; break;
 			case pPosition > 3: nPosition = 1; break;
 		}
-		st.log("pPosition[" + pPosition + "]");
-		st.log("nPosition[" + nPosition + "]");
+		//st.log("pPosition[" + pPosition + "]");
+		//st.log("nPosition[" + nPosition + "]");
 		var aPlanet = null;
 		var planetType = st.system.genPlanetType(nPosition);
-		st.log("planetType[" + planetType + "]");
+		//st.log("planetType[" + planetType + "]");
 		
 		var characteristic = "";
 		if (planetType === "Terrestrial world") {
@@ -112,7 +112,7 @@ st.system = {
 			case "Gas Giant": nSat = st.math.die(2, 6, 0); break; 
 			default: nSat = Math.max(0, st.math.die(1, 6, -3)); break;
 		}		
-		st.log("nSat[" + nSat + "]");
+		//st.log("nSat[" + nSat + "]");
 		
 		var rings = [];
 		var nRings = 0;
@@ -141,7 +141,7 @@ st.system = {
 	
 	getPlanetCharacteristic: function() {		
 		var pType = st.math.die(1,20,0);
-		st.log("pType[" + pType + "]");
+		//st.log("pType[" + pType + "]");
 		var aType = null;
 		switch(pType) {
 			case 1:  aType = "Atmospheric density"; break;
@@ -170,7 +170,7 @@ st.system = {
 	
 	getPlanetTypeInner: function() {		
 		var pType = st.math.die(1,20,0);
-		st.log("pType[" + pType + "]");
+		//st.log("pType[" + pType + "]");
 		var aType = null;
 		switch(true) {
 			case pType > 17: aType = "Asteroid belt"; break;
@@ -184,7 +184,7 @@ st.system = {
 	
 	getPlanetTypeLifeZone: function() {		
 		var pType = st.math.die(1,20,0);
-		st.log("pType[" + pType + "]");
+		//st.log("pType[" + pType + "]");
 		var aType = null;
 		switch(true) {
 			case pType > 17: aType = "Asteroid belt"; break;
@@ -200,7 +200,7 @@ st.system = {
 	
 	getPlanetTypeOuterSystem: function() {		
 		var pType = st.math.die(1,20,0);
-		st.log("pType[" + pType + "]");
+		//st.log("pType[" + pType + "]");
 		var aType = null;
 		switch(true) {
 			case pType > 17: aType = "Asteroid belt"; break;
@@ -224,7 +224,7 @@ st.system = {
 		st.log("render stars");
 		var h = [];
 		var nStars = st.system.stars.length;
-		st.log("nStars[" + nStars + "]");
+		//st.log("nStars[" + nStars + "]");
 		h.push("<h2>");
 		h.push("Stars (" + nStars + ")");
 		h.push("</h2>");
@@ -271,7 +271,7 @@ st.system = {
 		st.log("render planets");
 		var h = [];
 		var nPlanets = st.system.planets.length;
-		st.log("nPlanets[" + nPlanets + "]");
+		//st.log("nPlanets[" + nPlanets + "]");
 		h.push("<h2>");
 		h.push("Planets (" + nPlanets + " orbits)");
 		h.push("</h2>");
@@ -301,9 +301,14 @@ st.system = {
 							// planet - type
 							h.push("<span class=\"st-star-attr\">");
 							h.push(aPlanet.planetType);
-								if (aPlanet.characteristic) {
-									h.push(" (" + aPlanet.characteristic + ")");
-								}
+							if (aPlanet.characteristic) {
+								h.push(" (" + aPlanet.characteristic + ")");
+							}
+							if (aPlanet.planetType != "Empty orbit") {
+								h.push("<span class=\"st-government\">");
+								h.push("<a href=\"\" class=\"st-action st-add-government st-hidden\">[+] Add Government</a>");
+								h.push("</span>");
+							}
 							h.push(aPlanet.satellites ? "," : "");
 							h.push("</span>");
 
@@ -315,7 +320,11 @@ st.system = {
 									if (aPlanet.rings[r]) {
 										rh.push((r+1) + ": Ring");
 									} else {
-										rh.push((r+1) + ": Moon");
+										var b = [];
+										b.push("<span class=\"st-government\">");
+										b.push("<a href=\"\" class=\"st-action st-add-government st-hidden\">[+] Add Government</a>");
+										b.push("</span>");
+										rh.push((r+1) + ": Moon" + b.join(""));
 									}
 								}
 								h.push("<span class=\"st-star-attr\">");
@@ -338,6 +347,52 @@ st.system = {
 			h.push("</div>");
 		}
 		st.system.$planets.html(h.join(""));
-	}
+		$(".st-add-government").on("click", st.system.addGovernment);
+	},
+	
+	getPlanetGovernment: function() {		
+		var pGov = st.math.die(1,20,0);
+		//st.log("pGov[" + pGov + "]");
+		var ret = null;
+		switch(pGov) {
+			case 1:  aGov = "Allance"; break;
+			case 2:  aGov = "Anarchy"; break;
+			case 3:  aGov = "Autocracy"; break;
+			case 4:  aGov = "Bureaucracy"; break;
+			case 5:  aGov = "Colony"; break;
+			case 6:  aGov = "Corporate State"; break;
+			case 7:  aGov = "Emergency or transition"; break;
+			case 8:  aGov = "Empire"; break;
+			case 9:  aGov = "Federation"; break;
+			case 10: aGov = "Feudal"; break;
+			case 11: aGov = "Fragmented"; break;
+			case 12: aGov = "Military government"; break;
+			case 13: aGov = "Oligarchy"; break;
+			case 14: aGov = "Participatory democracy"; break;
+			case 15: aGov = "Penal colony"; break;
+			case 16: aGov = "Representative democracy"; break;
+			case 17: aGov = "Sanctuary"; break;
+			case 18: aGov = "Subjugated"; break;
+			case 19: aGov = "Theocracy"; break;
+			case 20: aGov = "Tribal"; break;
+		}
+		return aGov;
+	},
 
+	addGovernment: function(e) {
+		e.preventDefault();
+		var $that = $(this);
+		var $parent = $that.parent(".st-government");
+
+		var g = st.system.getPlanetGovernment();
+		
+		$parent.html("<a href=\"#\" class=\"st-remove-government\">" + g + "</a>");
+		$parent.find(".st-remove-government").on("click", st.system.removeGovernment);
+	},
+	
+	removeGovernment: function(e) {
+		e.preventDefault();
+		var $that = $(this);
+		$that.addClass("st-hidden");
+	}
 }
