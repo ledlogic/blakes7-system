@@ -9,6 +9,12 @@ var st = {
 
 	init: function() {
 		st.system.init();
+		$(".st-regen").on("click", st.regen);
+	},
+	
+	regen: function(e) {
+		e.preventDefault();
+		window.location.reload();
 	}
 };
 

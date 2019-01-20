@@ -279,6 +279,8 @@ st.system = {
 		var pCount = 1;
 		for(var pos=0;pos<3;pos++) {
 			h.push("<div class=\"" + st.system.renderPositionClass(pos) + "\">");
+			
+				// position: inner, life zone, or outer
 				h.push("<h3>");
 				h.push(st.system.renderPosition(pos));
 				h.push("</h3>");
@@ -290,10 +292,13 @@ st.system = {
 						posPlanets++;
 						
 						h.push("<div class=\"st-section st-stars\">");
+						
+							// planet - orbit number: starts at 1.
 							h.push("<span class=\"st-star-attr\">");
 							h.push(pCount++);
 							h.push("</span>");
 							
+							// planet - type
 							h.push("<span class=\"st-star-attr\">");
 							h.push(aPlanet.planetType);
 								if (aPlanet.characteristic) {
@@ -302,6 +307,7 @@ st.system = {
 							h.push(aPlanet.satellites ? "," : "");
 							h.push("</span>");
 
+							// planet - satellites
 							if (aPlanet.satellites) {
 								var rh = [];
 								var ringsLength = aPlanet.rings.length;

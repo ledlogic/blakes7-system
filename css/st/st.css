@@ -35,6 +35,20 @@ h4 {
 	text-transform: uppercase;
 }
 
+.st-button {
+	border: 2px solid #3498db;
+	color: #3498db;
+	font-size: 0.8em;
+	text-transform: uppercase;
+	padding: 6px 22.5px 6px 22.5px;
+	text-decoration: none;
+}
+
+.st-button:hover {
+	background-color: #3498db;
+	color: #ffffff;
+}
+
 .st-section {
 	border-left: 1px solid #000066;
 	border-right: 1px solid #000066;
