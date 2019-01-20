@@ -7,13 +7,22 @@
 	<link rel="stylesheet" type="text/css" href="css/st/st-print.css" media="print" />
 </head>
 <body>
-	<h1>Blakes 7 System Generator</h1>
-	<p>Tool for building systems for use within the <a href="https://rpggeek.com/rpgitem/51958/blakes-7-role-playing-game">Blakes 7 Role Playing Game</a>.</p>
-	<a href="#" class="st-regen st-button">New system</a>
-	<a href="#" class="st-show-actions st-button">Show actions</a>
-	<a href="#" class="st-hide-actions st-button st-hidden">Hide actions</a>
-	<a href="#" class="st-add-all-governments st-button">Add all governments</a>
+	<div class="st-header">
+		<h1>Blakes 7 System Generator</h1>
+		<p>Tool for building systems for use within the <a href="https://rpggeek.com/rpgitem/51958/blakes-7-role-playing-game">Blakes 7 Role Playing Game</a>.</p>
+	</div>
+	<div class="st-actions">
+		<a href="#" class="st-regen st-button">New system</a>
+		<a href="#" class="st-show-actions st-button">Show actions</a>
+		<a href="#" class="st-hide-actions st-button st-hidden">Hide actions</a>
+		<a href="#" class="st-add-all-governments st-button">Add all governments</a>
+	</div>
 	<div class="st-system">
+		<div class="st-name">
+			<label for="systemName">Name:</label>
+			<input type="text" id="systemName" value="" placeholder="System Name" />
+			<a href="#" class="st-random-system-name st-button">Random</a>
+		</div>
 		<div class="st-stars">
 		</div>
 		<div class="st-planets">

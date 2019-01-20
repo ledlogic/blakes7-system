@@ -4,6 +4,7 @@ st.system = {
 	$stars: null,
 	stars: [],
 	planets: [],
+	names: [],
 	
 	init: function() {
 		st.log("init system");
@@ -127,6 +128,28 @@ st.system = {
 
 		aPlanet = new Planet(nPosition, planetType, characteristic, nSat, rings);
 		return aPlanet;
+	},
+	
+	genSystemName: function() {
+		if (st.system.names.length) {
+			st.system.getSystemName();
+		} else {
+	        $.ajax({
+	            url : "./data/latin-animals.txt",
+	            dataType: "text",
+	            success : function (data) {
+	                st.system.names = data.split("\r\n");
+	                st.system.getSystemName();
+	            }
+	        });			
+		}
+	},
+	
+	getSystemName: function() {
+		var names = st.system.names;
+		var i = st.math.die(1, names.length,-1);
+		var animal = names[i];
+		$("#systemName").val(animal);
 	},
 	
 	genPlanetType: function(nPosition) {

@@ -29,6 +29,15 @@ h4 {
 	display: none;	
 }
 
+.st-actions {
+	margin: 20px 0 20px 0;
+}
+
+#systemName {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
 .st-star-attr {
 	padding: 0.2em;
 }
@@ -82,6 +91,7 @@ h4 {
 .st-government {
 	font-style: italic;
 }
+
 .st-remove-government {
 	padding: 0 0.2em 0 0.2em;
 }

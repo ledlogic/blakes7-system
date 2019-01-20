@@ -12,6 +12,7 @@ var st = {
 		$(".st-show-actions").on("click", st.showActions);
 		$(".st-hide-actions").on("click", st.hideActions);
 		$(".st-add-all-governments").on("click", st.addAllGovernments);
+		$(".st-random-system-name").on("click", st.system.genSystemName);
 	},	
 	regen: function(e) {
 		e.preventDefault();
